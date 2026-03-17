@@ -1,7 +1,19 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import Spotify from "./utils/spotifyAuth";
 
 function App() {
-  return <h1>Jamming</h1>;
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await Spotify.getAccessToken();
+    };
+    fetchToken();
+  }, []);
+
+  return (
+    <div>
+      <h1>Jamming</h1>
+    </div>
+  );
 }
 
 export default App;
