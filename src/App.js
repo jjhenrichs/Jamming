@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Spotify from "./utils/spotifyAuth";
+import SearchBar from "./SearchBar";
 import style from "./App.css";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   return (
     <div className={style.App}>
       <h1>Jamming</h1>
+      <SearchBar />
     </div>
   );
 }
