@@ -15,11 +15,14 @@ function App() {
 
   const handleSearchInputChange = ({ target }) => {
     setSearchInput(target.value);
-    console.log("Search input:", searchInput);
   };
 
   const clear = () => {
     setSearchInput("");
+  };
+
+  const search = () => {
+    console.log("Searching for:", searchInput);
   };
 
   return (
@@ -29,6 +32,7 @@ function App() {
         value={searchInput}
         onChange={handleSearchInputChange}
         clear={clear}
+        search={search}
       />
     </div>
   );
