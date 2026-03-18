@@ -25,7 +25,11 @@ function App() {
   return (
     <div className={style.App}>
       <h1>Jamming</h1>
-      <SearchBar value={searchInput} onChange={handleSearchInputChange} />
+      <SearchBar
+        value={searchInput}
+        onChange={handleSearchInputChange}
+        clear={clear}
+      />
     </div>
   );
 }

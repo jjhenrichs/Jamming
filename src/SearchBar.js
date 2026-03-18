@@ -4,7 +4,7 @@ const SearchBar = (props) => {
   return (
     <div>
       <input type="text" value={props.value} onChange={props.onChange} />
-      <button>Clear</button>
+      <button onClick={props.clear}>Clear</button>
     </div>
   );
 };
