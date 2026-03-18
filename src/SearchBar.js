@@ -4,6 +4,7 @@ const SearchBar = () => {
   return (
     <div>
       <input type="text" />
+      <button>Clear</button>
     </div>
   );
 };
