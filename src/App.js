@@ -18,6 +18,10 @@ function App() {
     console.log("Search input:", searchInput);
   };
 
+  const clear = () => {
+    setSearchInput("");
+  };
+
   return (
     <div className={style.App}>
       <h1>Jamming</h1>
