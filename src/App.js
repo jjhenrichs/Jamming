@@ -11,10 +11,17 @@ function App() {
     fetchToken();
   }, []);
 
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSearchInputChange = ({ target }) => {
+    setSearchInput(target.value);
+    console.log("Search input:", searchInput);
+  };
+
   return (
     <div className={style.App}>
       <h1>Jamming</h1>
-      <SearchBar />
+      <SearchBar value={searchInput} onChange={handleSearchInputChange} />
     </div>
   );
 }
