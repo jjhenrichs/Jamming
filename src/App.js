@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import Spotify from "./utils/spotifyAuth";
-import SearchBar from "./SearchBar";
-import style from "./App.css";
+import SearchBar from "./SearchBar/SearchBar";
+import "./App.css";
 
 function App() {
-  useEffect(() => {
-    const fetchToken = async () => {
-      const accessToken = await Spotify.getAccessToken();
-    };
-    fetchToken();
-  }, []);
+  // useEffect(() => {
+  //   const fetchToken = async () => {
+  //     const accessToken = await Spotify.getAccessToken();
+  //   };
+  //   fetchToken();
+  // }, []);
 
   const [searchInput, setSearchInput] = useState("");
 
@@ -26,7 +26,7 @@ function App() {
   };
 
   return (
-    <div className={style.App}>
+    <div className="app_container">
       <h1>Jamming</h1>
       <SearchBar
         value={searchInput}
