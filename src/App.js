@@ -9,7 +9,7 @@ function App() {
   }, []);
 
   const [searchInput, setSearchInput] = useState("");
-  const [contentType, setContentType] = useState("");
+  const [contentType, setContentType] = useState("track"); //searching for song by default
 
   const handleSearchInputChange = ({ target }) => {
     setSearchInput(target.value);
@@ -21,7 +21,7 @@ function App() {
 
   const search = () => {
     console.log("Searching for: ", searchInput);
-    Spotify.search(searchInput);
+    Spotify.search(searchInput, contentType);
   };
 
   return (
@@ -32,6 +32,7 @@ function App() {
         onChange={handleSearchInputChange}
         clear={clear}
         search={search}
+        setContentType={setContentType}
       />
     </div>
   );
