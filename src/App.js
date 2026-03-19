@@ -9,6 +9,7 @@ function App() {
   }, []);
 
   const [searchInput, setSearchInput] = useState("");
+  const [contentType, setContentType] = useState("");
 
   const handleSearchInputChange = ({ target }) => {
     setSearchInput(target.value);
