@@ -3,6 +3,11 @@ import "./SearchBar.css";
 const SearchBar = (props) => {
   return (
     <div className="sb_container">
+      <div className="filter_btns">
+        <button className="filter_btn">Songs</button>
+        <button className="filter_btn">Artists</button>
+        <button className="filter_btn">Albums</button>
+      </div>
       <input
         type="text"
         className="search_bar"
