@@ -4,12 +4,9 @@ import SearchBar from "./SearchBar/SearchBar";
 import "./App.css";
 
 function App() {
-  // useEffect(() => {
-  //   const fetchToken = async () => {
-  //     const accessToken = await Spotify.getAccessToken();
-  //   };
-  //   fetchToken();
-  // }, []);
+  useEffect(() => {
+    Spotify.getAccessToken();
+  }, []);
 
   const [searchInput, setSearchInput] = useState("");
 
@@ -22,7 +19,8 @@ function App() {
   };
 
   const search = () => {
-    console.log("Searching for:", searchInput);
+    console.log("Searching for: ", searchInput);
+    Spotify.search(searchInput);
   };
 
   return (

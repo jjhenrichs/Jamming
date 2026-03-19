@@ -69,6 +69,12 @@ const getToken = async (code) => {
   const body = await fetch(url, payload);
   const response = await body.json();
 
+  // Error handling in case of failed token exchange
+  if (response.error) {
+    console.error("Token error:", response.error, response.error_description);
+    return;
+  }
+
   localStorage.setItem("access_token", response.access_token);
 };
 
@@ -97,6 +103,22 @@ const Spotify = {
     const hashed = await sha256(codeVerifier);
     const codeChallenge = base64encode(hashed);
     requestUserAuth(codeVerifier, codeChallenge);
+  },
+  async search(term) {
+    const response = await fetch(
+      `https://api.spotify.com/v1/search?type=track&q=${term}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+
+    if (response.status != 200) {
+      console.error("Search error:", response.status, response.statusText);
+    } else {
+      console.log("Search results:", await response.json());
+    }
   },
 };
 
