@@ -14,7 +14,8 @@ function App() {
     setSearchInput(target.value);
   };
 
-  const clear = () => {
+  const clear = (e) => {
+    e.preventDefault();
     setSearchInput("");
   };
 
