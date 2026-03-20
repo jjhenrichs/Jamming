@@ -1,9 +1,12 @@
 import "./Tracklist.css";
+import Track from "../Track/Track";
 
 export default function Tracklist() {
   return (
     <div className="tracklist_container">
-      <h2>Tracklist goes here</h2>
+      <Track />
+      <Track />
+      <Track />
     </div>
   );
 }
