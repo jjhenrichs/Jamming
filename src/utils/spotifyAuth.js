@@ -104,9 +104,9 @@ const Spotify = {
     const codeChallenge = base64encode(hashed);
     requestUserAuth(codeVerifier, codeChallenge);
   },
-  async search(term, type = "track") {
+  async search(term) {
     const response = await fetch(
-      `https://api.spotify.com/v1/search?type=${type}&q=${term}`,
+      `https://api.spotify.com/v1/search?type=track&q=${term}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -114,7 +114,7 @@ const Spotify = {
       },
     );
 
-    if (response.status != 200) {
+    if (response.status !== 200) {
       console.error("Search error:", response.status, response.statusText);
     } else {
       console.log("Search results:", await response.json());
