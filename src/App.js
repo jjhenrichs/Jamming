@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Spotify from "./utils/spotifyAuth";
 import SearchBar from "./SearchBar/SearchBar";
 import "./App.css";
+import Results from "./Results/Results";
 
 function App() {
   useEffect(() => {
@@ -33,6 +34,7 @@ function App() {
         clear={clear}
         search={search}
       />
+      <Results />
     </div>
   );
 }
