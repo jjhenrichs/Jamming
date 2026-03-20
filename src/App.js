@@ -10,6 +10,7 @@ function App() {
   }, []);
 
   const [searchInput, setSearchInput] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleSearchInputChange = ({ target }) => {
     setSearchInput(target.value);
@@ -22,7 +23,7 @@ function App() {
 
   const search = () => {
     console.log("Searching for: ", searchInput);
-    Spotify.search(searchInput);
+    const results = Spotify.search(searchInput);
   };
 
   return (
