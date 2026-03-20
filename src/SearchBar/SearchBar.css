@@ -1,34 +1,5 @@
 .sb_container {
-  border: 1px solid black;
   padding: 10px;
-}
-
-.filter_btns {
-  border: 1px solid red;
-  width: 300px;
-  margin: 0 auto;
-}
-
-.filter_btn {
-  margin: 5px 10px;
-  padding: 5px 10px;
-  border-radius: 20px;
-  border: transparent;
-  background-color: rgb(197, 197, 197);
-  color: white;
-}
-
-.filter_btn:hover {
-  background: rgb(129, 129, 129);
-}
-
-.filter_btn:active {
-  box-shadow:
-    3px 3px 5px rgb(0, 238, 255),
-    3px -4px 5px rgb(0, 238, 255),
-    -3px -4px 5px rgb(0, 238, 255),
-    -3px 3px 5px rgb(0, 238, 255);
-  color: rgb(0, 238, 255);
 }
 
 .search_bar {
