@@ -117,7 +117,7 @@ const Spotify = {
     if (response.status !== 200) {
       console.error("Search error:", response.status, response.statusText);
     } else {
-      console.log("Search results:", await response.json());
+      return response.json();
     }
   },
 };

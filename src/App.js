@@ -24,7 +24,6 @@ function App() {
   const search = () => {
     const results = Spotify.search(searchInput);
     setSearchResults(results);
-    console.log("Searching for: ", searchResults);
   };
 
   return (
