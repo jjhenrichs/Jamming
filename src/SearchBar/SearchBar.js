@@ -1,10 +1,17 @@
 import "./SearchBar.css";
 
-export default function SearchBar() {
+export default function SearchBar(props) {
   return (
     <div className="container">
-      <form>
-        <input type="text" placeholder="Enter A Song" className="search_bar" />
+      <form onSubmit={props.onSearch}>
+        <input
+          type="text"
+          name="songInput"
+          className="search_bar"
+          placeholder="Enter A Song"
+          value={props.value}
+          onChange={props.onChange}
+        />
         <div className="search_buttons">
           <button type="submit" className="search_button">
             Search
