@@ -4,7 +4,7 @@ export default function SearchBar() {
   return (
     <div className="container">
       <form>
-        <input type="text" placeholder="Enter A Song" />
+        <input type="text" placeholder="Enter A Song" className="search_bar" />
         <div className="search_buttons">
           <button type="submit" className="search_button">
             Search

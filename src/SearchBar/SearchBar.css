@@ -1,9 +1,11 @@
-.container {
-  border: 1px solid black;
+.search_bar {
+  width: 300px;
+  padding: 2px 5px;
 }
 
 .search_buttons {
   padding: 10px;
+  margin: 10px;
 }
 
 .search_button {
