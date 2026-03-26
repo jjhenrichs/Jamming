@@ -101,8 +101,6 @@ const Spotify = {
 
     // If the code nor the access token is found start PKCE (Proof Key for Code Exchange) authorization flow
     initializePKCE();
-
-    console.log("Access token:", localStorage.getItem("access_token"));
   },
 };
 
