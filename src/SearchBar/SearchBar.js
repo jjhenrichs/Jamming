@@ -3,7 +3,7 @@ import "./SearchBar.css";
 export default function SearchBar(props) {
   return (
     <div className="container">
-      <form onSubmit={props.onSearch}>
+      <form onSubmit={props.onSearch} onReset={props.onClear}>
         <input
           type="text"
           name="songInput"

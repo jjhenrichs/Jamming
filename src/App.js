@@ -21,6 +21,11 @@ function App() {
     setSongName(target.value);
   };
 
+  const clearSearch = (e) => {
+    e.preventDefault();
+    setSongName("");
+  };
+
   return (
     <div className="App">
       <h1>Jamming</h1>
@@ -28,6 +33,7 @@ function App() {
         onSearch={search}
         value={songName}
         onChange={handleSearchInput}
+        onClear={clearSearch}
       />
     </div>
   );
