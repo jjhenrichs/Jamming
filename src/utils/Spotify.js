@@ -130,6 +130,11 @@ const Spotify = {
     const body = await fetch(url, payload);
     const response = await body.json();
 
+    if (response.error) {
+      console.error("Token exchange failed:", response.error);
+      return; // ✅ don't overwrite the valid token
+    }
+
     localStorage.setItem("access_token", response.access_token);
     if (response.refresh_token) {
       localStorage.setItem("refresh_token", response.refresh_token);

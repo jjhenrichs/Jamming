@@ -2,6 +2,7 @@ import "./App.css";
 import { use, useEffect, useState } from "react";
 import Spotify from "./utils/Spotify";
 import SearchBar from "./SearchBar/SearchBar";
+import Results from "./Results/Results";
 
 function App() {
   const [songName, setSongName] = useState("");
@@ -35,6 +36,7 @@ function App() {
         onChange={handleSearchInput}
         onClear={clearSearch}
       />
+      <Results />
     </div>
   );
 }
