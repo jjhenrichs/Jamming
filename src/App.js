@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Spotify from "./utils/Spotify";
 import SearchBar from "./SearchBar/SearchBar";
 
@@ -10,10 +10,10 @@ function App() {
     Spotify.getAccessToken();
   }, []);
 
-  const search = (e) => {
+  const search = async (e) => {
     e.preventDefault();
     console.log("Searching for song:", songName);
-    // setSongName(target.value);
+    await Spotify.search(songName);
   };
 
   const handleSearchInput = ({ target }) => {
