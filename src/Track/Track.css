@@ -1,0 +1,19 @@
+.track_container {
+  border-top: 1px solid black;
+}
+
+.track_info {
+  text-align: left;
+}
+
+.song_name {
+  padding: 10px;
+  padding-bottom: 3px;
+  margin: 0;
+}
+
+.artist_info {
+  margin: 0;
+  padding: 10px;
+  padding-top: 3px;
+}

@@ -1,0 +1,17 @@
+.results_container {
+  width: 400px;
+  border-radius: 50px;
+  margin: 0 auto;
+  background: rgba(0, 255, 0, 0.5);
+}
+
+h2 {
+  padding: 20px;
+  margin: 0;
+}
+
+.buffer {
+  border-top: 1px solid black;
+  height: 40px;
+  margin: 0;
+}
