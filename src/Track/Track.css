@@ -1,19 +1,30 @@
 .track_container {
   border-top: 1px solid black;
+  display: flex;
+  flex-direction: row;
 }
 
 .track_info {
   text-align: left;
+  padding-right: 175px;
 }
 
 .song_name {
-  padding: 10px;
+  padding: 20px;
   padding-bottom: 3px;
   margin: 0;
 }
 
 .artist_info {
   margin: 0;
-  padding: 10px;
+  padding: 20px;
   padding-top: 3px;
+}
+
+.add_button {
+  background-color: transparent;
+  border: transparent;
+  font-size: 30px;
+  cursor: pointer;
+  margin: 15px;
 }

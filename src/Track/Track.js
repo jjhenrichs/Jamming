@@ -9,6 +9,7 @@ export default function Track(props) {
           {props.artist} | {props.album}
         </p>
       </div>
+      <button className="add_button">+</button>
     </div>
   );
 }
