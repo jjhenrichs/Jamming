@@ -1,5 +1,6 @@
 const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
+let accessToken;
 
 // Creating a code verifier
 const generateRandomString = (length) => {
@@ -24,6 +25,31 @@ const base64encode = (input) => {
     .replace(/\//g, "_");
 };
 
+const initializePKCE = async () => {
+  // Generating a code verifier
+  const codeVerifier = generateRandomString(64);
+
+  // Genreating code challenge from the code verifier
+  const hashed = await sha256(codeVerifier);
+  const codeChallenge = base64encode(hashed);
+  const authUrl = new URL("https://accounts.spotify.com/authorize");
+
+  // generated in the previous step
+  localStorage.setItem("code_verifier", codeVerifier);
+
+  const params = {
+    response_type: "code",
+    client_id: clientId,
+    scope: "user-read-private user-read-email",
+    code_challenge_method: "S256",
+    code_challenge: codeChallenge,
+    redirect_uri: redirectUri,
+  };
+
+  authUrl.search = new URLSearchParams(params).toString();
+  window.location.href = authUrl.toString();
+};
+
 const getToken = async (code) => {
   // stored in the previous step
   const codeVerifier = localStorage.getItem("code_verifier");
@@ -46,50 +72,22 @@ const getToken = async (code) => {
   const body = await fetch(url, payload);
   const response = await body.json();
 
-  localStorage.setItem("access_token", response.access_token);
-};
+  if (response.error) {
+    console.error("Token exchange failed:", response.error);
+    return; // ✅ don't overwrite valid tokens if the exchange fails
+  }
 
-const initializePKCE = async () => {
-  // Generating a code verifier
-  const codeVerifier = generateRandomString(64);
-
-  // Genreating code challenge from the code verifier
-  const hashed = await sha256(codeVerifier);
-  const codeChallenge = base64encode(hashed);
-  const authUrl = new URL("https://accounts.spotify.com/authorize");
-
-  // generated in the previous step
-  window.localStorage.setItem("code_verifier", codeVerifier);
-
-  const params = {
-    response_type: "code",
-    client_id: clientId,
-    scope: "user-read-private user-read-email",
-    code_challenge_method: "S256",
-    code_challenge: codeChallenge,
-    redirect_uri: redirectUri,
-  };
-
-  authUrl.search = new URLSearchParams(params).toString();
-  console.log("Redirecting to Spotify authorization URL:", authUrl.toString());
-  window.location.href = authUrl.toString();
+  console.log("Token exchange response:", response);
+  window.localStorage.setItem("refresh_token", response.refresh_token);
+  window.localStorage.setItem("access_token", response.access_token);
 };
 
 const Spotify = {
   async getAccessToken() {
     // Return existing valid token if we have one
-    const accessToken = localStorage.getItem("access_token");
-
-    if (accessToken === null) {
-      console.log("No access token found in localStorage.");
-    }
-
-    if (accessToken === "undefined") {
-      console.log("Access token is undefined.");
-    }
+    accessToken = localStorage.getItem("access_token");
 
     if (accessToken && accessToken !== "undefined") {
-      console.log("Using existing access token:", accessToken);
       return accessToken;
     }
 
@@ -97,14 +95,13 @@ const Spotify = {
     const urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get("code");
 
-    console.log("Authorization code from URL:", code);
+    localStorage.setItem("auth_code", code); // Proof that the code is being retrieved correctly
 
     if (code) {
       await getToken(code);
 
       // Clean the code from the URL so it is not reused on refresh
       window.history.replaceState({}, document.title, "/");
-      console.log(localStorage.getItem("access_token"));
       return localStorage.getItem("access_token");
     }
 
@@ -114,6 +111,7 @@ const Spotify = {
   async getRefreshToken() {
     // refresh token that has been previously stored
     const refreshToken = localStorage.getItem("refresh_token");
+    console.log("Using refresh token:", refreshToken);
     const url = "https://accounts.spotify.com/api/token";
 
     const payload = {
@@ -150,6 +148,7 @@ const Spotify = {
       },
     );
     const data = await response.json();
+
     console.log("Search results:", data);
   },
 };
