@@ -80,6 +80,10 @@ const getToken = async (code) => {
   console.log("Token exchange response:", response);
   window.localStorage.setItem("refresh_token", response.refresh_token);
   window.localStorage.setItem("access_token", response.access_token);
+  window.localStorage.setItem(
+    "token_expiry",
+    Date.now() + response.expires_in * 1000,
+  ); // Store expiry time
 };
 
 const Spotify = {

@@ -1,14 +1,31 @@
 import "./App.css";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Spotify from "./utils/Spotify";
 import SearchBar from "./SearchBar/SearchBar";
 import Results from "./Results/Results";
 
 function App() {
+  const [count, setCount] = useState(0);
   const [songName, setSongName] = useState("");
 
   useEffect(() => {
-    Spotify.getAccessToken();
+    const initAuth = async () => {
+      await Spotify.getAccessToken();
+
+      const expiry = localStorage.getItem("token_expiry");
+      if (expiry) {
+        const timeUntilExpiry = expiry - Date.now();
+        console.log("Token expires in (ms):", timeUntilExpiry);
+
+        const timer = setInterval(() => {
+          Spotify.getRefreshToken();
+        }, timeUntilExpiry);
+
+        return () => clearInterval(timer);
+      }
+    };
+
+    initAuth();
   }, []);
 
   const search = async (e) => {
