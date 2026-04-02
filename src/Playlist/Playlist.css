@@ -1,0 +1,6 @@
+.playlist_container {
+  width: 400px;
+  border-radius: 30px;
+  margin: 0 auto;
+  background-color: rgba(52, 182, 252, 0.751);
+}
