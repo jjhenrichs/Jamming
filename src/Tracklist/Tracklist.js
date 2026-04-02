@@ -13,24 +13,6 @@ export default function Tracklist(props) {
           className="track"
         />
       ))}
-      <Track
-        songName="Song 1"
-        artist="Artist 1"
-        album="Album 1"
-        className="track"
-      />
-      <Track
-        songName="Song 2"
-        artist="Artist 2"
-        album="Album 2"
-        className="track"
-      />
-      <Track
-        songName="Song 3"
-        artist="Artist 3"
-        album="Album 3"
-        className="track"
-      />
     </div>
   );
 }
