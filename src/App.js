@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Spotify from "./utils/Spotify";
 import SearchBar from "./SearchBar/SearchBar";
 import Results from "./Results/Results";
+import Playlist from "./Playlist/Playlist";
 
 function App() {
   const [songName, setSongName] = useState("");
@@ -32,7 +33,6 @@ function App() {
   };
 
   const handleSearchInput = ({ target }) => {
-    console.log(target.value);
     setSongName(target.value);
   };
 
@@ -51,7 +51,10 @@ function App() {
         onChange={handleSearchInput}
         onClear={clearSearch}
       />
-      <Results songs={searchResults} />
+      <div className="results-playlist-container">
+        <Results songs={searchResults} />
+        <Playlist />
+      </div>
     </div>
   );
 }
