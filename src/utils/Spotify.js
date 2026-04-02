@@ -163,6 +163,8 @@ const Spotify = {
         artist: track.artists[0].name,
         album: track.album.name,
       }));
+    } else {
+      console.error("Search failed with status:", response);
     }
   },
 };
