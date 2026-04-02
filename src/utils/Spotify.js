@@ -144,16 +144,26 @@ const Spotify = {
   },
   async search(song) {
     const response = await fetch(
-      `https://api.spotify.com/v1/search?offset=0&limit=10&query=${song}&type=track&locale=en-US,en;q%3D0.9`,
+      `https://api.spotify.com/v1/search?q=${song}&type=track&market=EN&offset=0&limit=10`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       },
     );
-    const data = await response.json();
 
-    console.log("Search results:", data);
+    console.log("Search response status:", response.status);
+
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log("Search results:", data);
+      return data.tracks.items.map((track) => ({
+        id: track.id,
+        song_name: track.name,
+        artist: track.artists[0].name,
+        album: track.album.name,
+      }));
+    }
   },
 };
 

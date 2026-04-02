@@ -5,33 +5,30 @@ import SearchBar from "./SearchBar/SearchBar";
 import Results from "./Results/Results";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [songName, setSongName] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    const initAuth = async () => {
-      await Spotify.getAccessToken();
+    Spotify.getAccessToken();
 
-      const expiry = localStorage.getItem("token_expiry");
-      if (expiry) {
-        const timeUntilExpiry = expiry - Date.now();
-        console.log("Token expires in (ms):", timeUntilExpiry);
+    const timer = setTimeout(
+      () => {
+        Spotify.getRefreshToken();
+      },
+      1000 * 60 * 60,
+    ); // Refresh token every hour
 
-        const timer = setInterval(() => {
-          Spotify.getRefreshToken();
-        }, timeUntilExpiry);
-
-        return () => clearInterval(timer);
-      }
-    };
-
-    initAuth();
+    return () => clearTimeout(timer); // Cleanup on unmount
   }, []);
 
   const search = async (e) => {
     e.preventDefault();
     console.log("Searching for song:", songName);
-    await Spotify.search(songName);
+    const data = await Spotify.search(songName);
+
+    if (data != null) {
+      setSearchResults(data);
+    }
   };
 
   const handleSearchInput = ({ target }) => {
@@ -53,7 +50,7 @@ function App() {
         onChange={handleSearchInput}
         onClear={clearSearch}
       />
-      <Results />
+      <Results songs={searchResults} />
     </div>
   );
 }
