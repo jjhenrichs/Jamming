@@ -11,8 +11,7 @@ export default function Track(props) {
       </div>
       <button
         className="add_button"
-        onClick={props.addTrack}
-        value={props.songName}
+        onClick={() => props.addTrack(props.track)}
       >
         +
       </button>

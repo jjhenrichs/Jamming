@@ -53,10 +53,9 @@ function App() {
     setSearchResults([]);
   };
 
-  const addTrack = ({ target }) => {
-    console.log("Adding track:", target.value);
-    setPlaylistTracks((prevTracks) => [...prevTracks, target.value]);
-    console.log("Current playlist tracks:", playlistTracks);
+  const addTrack = (track) => {
+    console.log("Adding track:", track);
+    setPlaylistTracks((prevTracks) => [...prevTracks, track]);
   };
 
   return (

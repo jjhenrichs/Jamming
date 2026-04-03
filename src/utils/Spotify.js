@@ -167,6 +167,7 @@ const Spotify = {
         song_name: track.name,
         artist: track.artists[0].name,
         album: track.album.name,
+        uri: track.uri,
       }));
     } else {
       console.error("Search failed with status:", response);

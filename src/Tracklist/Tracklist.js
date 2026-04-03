@@ -7,6 +7,7 @@ export default function Tracklist(props) {
       {props.tracks.map((track) => (
         <Track
           key={track.id}
+          track={track}
           songName={track.song_name}
           artist={track.artist}
           album={track.album}
