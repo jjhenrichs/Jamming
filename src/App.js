@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Spotify from "./utils/Spotify";
 import SearchBar from "./SearchBar/SearchBar";
 import Results from "./Results/Results";
@@ -8,19 +8,30 @@ import Playlist from "./Playlist/Playlist";
 function App() {
   const [songName, setSongName] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  // const [playlistTracks, setPlaylistTracks] = useState([]);
+
+  const isInitialize = useRef(false); // useRef to track initialization across renders
 
   useEffect(() => {
-    Spotify.getAccessToken();
+    // Only initialize once
+    if (!isInitialize.current) {
+      initialize();
+      isInitialize.current = true;
+    }
 
-    const timer = setTimeout(
+    const timer = setInterval(
       () => {
         Spotify.getRefreshToken();
       },
       1000 * 60 * 60,
     ); // Refresh token every hour
 
-    return () => clearTimeout(timer); // Cleanup on unmount
+    return () => clearInterval(timer); // Cleanup on unmount
   }, []);
+
+  const initialize = () => {
+    Spotify.getAccessToken();
+  };
 
   const search = async (e) => {
     e.preventDefault();
@@ -42,6 +53,10 @@ function App() {
     setSearchResults([]);
   };
 
+  const addTrack = () => {
+    console.log("Adding track:");
+  };
+
   return (
     <div className="App">
       <h1>Jamming</h1>
@@ -52,7 +67,7 @@ function App() {
         onClear={clearSearch}
       />
       <div className="results-playlist-container">
-        <Results songs={searchResults} />
+        <Results songs={searchResults} addTrack={addTrack} />
         <Playlist />
       </div>
     </div>

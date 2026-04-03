@@ -1,6 +1,6 @@
 const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
-let accessToken;
+let accessToken = null;
 
 // Creating a code verifier
 const generateRandomString = (length) => {
@@ -138,6 +138,11 @@ const Spotify = {
     }
 
     localStorage.setItem("access_token", response.access_token);
+    localStorage.setItem(
+      "token_expiry",
+      Date.now() + response.expires_in * 1000,
+    ); // Update expiry time
+
     if (response.refresh_token) {
       localStorage.setItem("refresh_token", response.refresh_token);
     }

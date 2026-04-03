@@ -11,6 +11,7 @@ export default function Tracklist(props) {
           artist={track.artist}
           album={track.album}
           className="track"
+          addTrack={props.addTrack}
         />
       ))}
     </div>
