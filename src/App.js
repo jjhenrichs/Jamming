@@ -54,8 +54,12 @@ function App() {
   };
 
   const addTrack = (track) => {
-    console.log("Adding track:", track);
-    setPlaylistTracks((prevTracks) => [...prevTracks, track]);
+    if (playlistTracks.some((t) => t.id === track.id)) {
+      console.warn("Track already in playlist:", track.song_name);
+      alert(`${track.song_name} has already been added`);
+    } else {
+      setPlaylistTracks((prevTracks) => [...prevTracks, track]);
+    }
   };
 
   return (
