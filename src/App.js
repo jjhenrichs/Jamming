@@ -8,7 +8,7 @@ import Playlist from "./Playlist/Playlist";
 function App() {
   const [songName, setSongName] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  // const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [playlistTracks, setPlaylistTracks] = useState([]);
 
   const isInitialize = useRef(false); // useRef to track initialization across renders
 
@@ -53,8 +53,10 @@ function App() {
     setSearchResults([]);
   };
 
-  const addTrack = () => {
-    console.log("Adding track:");
+  const addTrack = ({ target }) => {
+    console.log("Adding track:", target.value);
+    setPlaylistTracks((prevTracks) => [...prevTracks, target.value]);
+    console.log("Current playlist tracks:", playlistTracks);
   };
 
   return (
@@ -68,7 +70,7 @@ function App() {
       />
       <div className="results-playlist-container">
         <Results songs={searchResults} addTrack={addTrack} />
-        <Playlist />
+        <Playlist playlist={playlistTracks} />
       </div>
     </div>
   );
