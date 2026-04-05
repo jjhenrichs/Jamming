@@ -62,6 +62,12 @@ function App() {
     }
   };
 
+  const removeTrack = (track) => {
+    setPlaylistTracks((prevTracks) =>
+      prevTracks.filter((t) => t.id !== track.id),
+    );
+  };
+
   return (
     <div className="App">
       <h1>Jamming</h1>
@@ -73,7 +79,7 @@ function App() {
       />
       <div className="results-playlist-container">
         <Results songs={searchResults} addTrack={addTrack} />
-        <Playlist playlist={playlistTracks} />
+        <Playlist playlist={playlistTracks} removeTrack={removeTrack} />
       </div>
     </div>
   );

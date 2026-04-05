@@ -10,7 +10,12 @@ export default function Track(props) {
         </p>
       </div>
       {props.inPlaylist ? (
-        <button className="action_button">-</button>
+        <button
+          className="action_button"
+          onClick={() => props.removeTrack(props.track)}
+        >
+          -
+        </button>
       ) : (
         <button
           className="action_button"

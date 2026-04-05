@@ -14,6 +14,7 @@ export default function Tracklist(props) {
           className="track"
           addTrack={props.addTrack}
           inPlaylist={props.inPlaylist}
+          removeTrack={props.removeTrack}
         />
       ))}
     </div>
