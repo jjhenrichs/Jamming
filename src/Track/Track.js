@@ -9,12 +9,16 @@ export default function Track(props) {
           {props.artist} | {props.album}
         </p>
       </div>
-      <button
-        className="add_button"
-        onClick={() => props.addTrack(props.track)}
-      >
-        +
-      </button>
+      {props.inPlaylist ? (
+        <button className="action_button">-</button>
+      ) : (
+        <button
+          className="action_button"
+          onClick={() => props.addTrack(props.track)}
+        >
+          +
+        </button>
+      )}
     </div>
   );
 }
