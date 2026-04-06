@@ -1,5 +1,6 @@
 import "./Playlist.css";
 import Tracklist from "../Tracklist/Tracklist";
+import { AiOutlineSpotify } from "react-icons/ai";
 
 export default function Playlist(props) {
   return (
@@ -18,6 +19,9 @@ export default function Playlist(props) {
         inPlaylist={true}
         removeTrack={props.removeTrack}
       />
+      <div className="save_btn_container">
+        <AiOutlineSpotify className="save_button" />
+      </div>
       <p className="buffer"></p>
     </div>
   );
