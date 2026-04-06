@@ -4,3 +4,16 @@
   margin: 0 auto;
   background-color: rgba(52, 182, 252, 0.751);
 }
+
+.playlist_header {
+  border-bottom: 2px solid black;
+}
+
+.playlist_name {
+  border: transparent;
+  font-size: 1.5rem;
+  text-align: center;
+  background: transparent;
+  margin: 20px;
+  cursor: text;
+}

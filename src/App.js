@@ -9,6 +9,7 @@ function App() {
   const [songName, setSongName] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [playlistName, setPlaylistName] = useState("New Playlist");
 
   const isInitialize = useRef(false); // useRef to track initialization across renders
 
@@ -68,6 +69,10 @@ function App() {
     );
   };
 
+  const changePlaylistName = ({ target }) => {
+    setPlaylistName(target.value);
+  };
+
   return (
     <div className="App">
       <h1>Jamming</h1>
@@ -79,7 +84,12 @@ function App() {
       />
       <div className="results-playlist-container">
         <Results songs={searchResults} addTrack={addTrack} />
-        <Playlist playlist={playlistTracks} removeTrack={removeTrack} />
+        <Playlist
+          playlist={playlistTracks}
+          removeTrack={removeTrack}
+          onNameChange={changePlaylistName}
+          playlistName={playlistName}
+        />
       </div>
     </div>
   );
