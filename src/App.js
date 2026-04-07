@@ -80,6 +80,8 @@ function App() {
     if (playlistTracks.length >= 1) {
       const trackUris = playlistTracks.map((track) => track.uri);
       Spotify.savePlaylist(playlistName, trackUris);
+      setPlaylistName("New Playlist");
+      setPlaylistTracks([]);
     } else {
       alert("Cannot save an empty playlist.");
     }
