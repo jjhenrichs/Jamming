@@ -78,7 +78,7 @@ function App() {
     console.log(playlistTracks.length);
 
     if (playlistTracks.length >= 1) {
-      console.log("Saving playlist:", playlistName, playlistTracks);
+      Spotify.savePlaylist(playlistName, playlistTracks);
     } else {
       alert("Cannot save an empty playlist.");
     }

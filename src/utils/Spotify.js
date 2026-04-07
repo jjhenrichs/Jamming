@@ -77,7 +77,6 @@ const getToken = async (code) => {
     return; // ✅ don't overwrite valid tokens if the exchange fails
   }
 
-  console.log("Token exchange response:", response);
   window.localStorage.setItem("refresh_token", response.refresh_token);
   window.localStorage.setItem("access_token", response.access_token);
   window.localStorage.setItem(
@@ -115,7 +114,6 @@ const Spotify = {
   async getRefreshToken() {
     // refresh token that has been previously stored
     const refreshToken = localStorage.getItem("refresh_token");
-    console.log("Using refresh token:", refreshToken);
     const url = "https://accounts.spotify.com/api/token";
 
     const payload = {
@@ -157,11 +155,8 @@ const Spotify = {
       },
     );
 
-    console.log("Search response status:", response.status);
-
     if (response.status === 200) {
       const data = await response.json();
-      console.log("Search results:", data);
       return data.tracks.items.map((track) => ({
         id: track.id,
         song_name: track.name,
@@ -172,6 +167,9 @@ const Spotify = {
     } else {
       console.error("Search failed with status:", response);
     }
+  },
+  savePlaylist(playlistName, trackUris) {
+    console.log("Saving playlist:", playlistName, trackUris);
   },
 };
 
