@@ -40,7 +40,7 @@ const initializePKCE = async () => {
   const params = {
     response_type: "code",
     client_id: clientId,
-    scope: "user-read-private user-read-email",
+    scope: "user-read-private playlist-modify-public playlist-modify-private",
     code_challenge_method: "S256",
     code_challenge: codeChallenge,
     redirect_uri: redirectUri,

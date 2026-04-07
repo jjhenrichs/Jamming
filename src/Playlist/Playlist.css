@@ -20,24 +20,46 @@
 }
 
 .save_btn_container {
-  margin: 20px;
-  font-size: 3rem;
-  color: black;
-  background-color: rgba(52, 252, 142, 0.751);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 0;
 }
 
-.save_btn_container:hover {
+.save_button {
+  border: transparent;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.save_icon {
+  background-color: rgba(52, 252, 142, 0.751);
+  margin: 0;
+  padding: 10px;
+  font-size: 2.25rem;
+  border-radius: 50%;
+  border: transparent;
+}
+
+.save_icon:hover {
+  cursor: pointer;
+  font-size: 2.5rem;
+}
+
+.save_icon:active {
+  color: rgba(52, 252, 142, 0.751);
+  background-color: black;
+}
+
+/* .save_btn_container:hover {
   cursor: pointer;
   font-size: 3.7rem;
   width: 60px;
   height: 60px;
-}
+} */
 
-.save_btn_container:active {
+/* .save_btn_container:active {
   color: rgba(52, 252, 142, 0.751);
   background-color: black;
-}
+} */

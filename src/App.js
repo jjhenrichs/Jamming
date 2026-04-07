@@ -73,6 +73,17 @@ function App() {
     setPlaylistName(target.value);
   };
 
+  const savePlaylist = () => {
+    console.log("Saving playlist:", playlistName, playlistTracks);
+    console.log(playlistTracks.length);
+
+    if (playlistTracks.length >= 1) {
+      console.log("Saving playlist:", playlistName, playlistTracks);
+    } else {
+      alert("Cannot save an empty playlist.");
+    }
+  };
+
   return (
     <div className="App">
       <h1>Jamming</h1>
@@ -89,6 +100,7 @@ function App() {
           removeTrack={removeTrack}
           onNameChange={changePlaylistName}
           playlistName={playlistName}
+          onSave={savePlaylist}
         />
       </div>
     </div>

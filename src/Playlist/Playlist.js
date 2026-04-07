@@ -20,7 +20,9 @@ export default function Playlist(props) {
         removeTrack={props.removeTrack}
       />
       <div className="save_btn_container">
-        <AiOutlineSpotify className="save_button" />
+        <button type="submit" className="save_button" onClick={props.onSave}>
+          <AiOutlineSpotify className="save_icon" />
+        </button>
       </div>
       <p className="buffer"></p>
     </div>
