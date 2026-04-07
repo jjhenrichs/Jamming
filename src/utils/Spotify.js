@@ -168,8 +168,62 @@ const Spotify = {
       console.error("Search failed with status:", response);
     }
   },
-  savePlaylist(playlistName, trackUris) {
+  async savePlaylist(playlistName, trackUris) {
     console.log("Saving playlist:", playlistName, trackUris);
+
+    let token = localStorage.getItem("access_token");
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    // Creating a new playlist
+    const response = await fetch("https://api.spotify.com/v1/me/playlists", {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        name: playlistName,
+        description: "Created with Jamming App",
+        public: false,
+      }),
+    });
+
+    // console.log("Playlist creation response:", response);
+
+    if (!response.ok) {
+      console.error("Failed to create playlist:", response);
+      return;
+    }
+
+    const playlist_data = await response.json();
+
+    console.log("Playlist creation response:", playlist_data);
+    const playlist_id = playlist_data.id;
+
+    console.log(trackUris);
+
+    // Adding tracks to the playlist
+    const response_tracks = await fetch(
+      `https://api.spotify.com/v1/playlists/${playlist_id}/items`,
+      {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          uris: trackUris,
+        }),
+      },
+    );
+
+    if (!response_tracks.ok) {
+      console.error("Failed to add tracks to playlist:", response_tracks);
+      return;
+    }
+
+    const tracks_data = await response_tracks.json();
+    return tracks_data;
+
+    // console.log("Playlist creation response:", tracks_data);
   },
 };
 
