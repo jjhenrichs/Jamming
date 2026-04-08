@@ -24,7 +24,6 @@ export default function Playlist(props) {
           <AiOutlineSpotify className="save_icon" />
         </button>
       </div>
-      <p className="buffer"></p>
     </div>
   );
 }

@@ -35,7 +35,7 @@ const initializePKCE = async () => {
   const authUrl = new URL("https://accounts.spotify.com/authorize");
 
   // generated in the previous step
-  localStorage.setItem("code_verifier", codeVerifier);
+  sessionStorage.setItem("code_verifier", codeVerifier);
 
   const params = {
     response_type: "code",
@@ -52,7 +52,7 @@ const initializePKCE = async () => {
 
 const getToken = async (code) => {
   // stored in the previous step
-  const codeVerifier = localStorage.getItem("code_verifier");
+  const codeVerifier = sessionStorage.getItem("code_verifier");
 
   const url = "https://accounts.spotify.com/api/token";
   const payload = {
@@ -77,9 +77,9 @@ const getToken = async (code) => {
     return; // ✅ don't overwrite valid tokens if the exchange fails
   }
 
-  window.localStorage.setItem("refresh_token", response.refresh_token);
-  window.localStorage.setItem("access_token", response.access_token);
-  window.localStorage.setItem(
+  sessionStorage.setItem("refresh_token", response.refresh_token);
+  sessionStorage.setItem("access_token", response.access_token);
+  sessionStorage.setItem(
     "token_expiry",
     Date.now() + response.expires_in * 1000,
   ); // Store expiry time
@@ -88,7 +88,7 @@ const getToken = async (code) => {
 const Spotify = {
   async getAccessToken() {
     // Return existing valid token if we have one
-    accessToken = localStorage.getItem("access_token");
+    accessToken = sessionStorage.getItem("access_token");
 
     if (accessToken && accessToken !== "undefined") {
       return accessToken;
@@ -98,14 +98,14 @@ const Spotify = {
     const urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get("code");
 
-    localStorage.setItem("auth_code", code); // Proof that the code is being retrieved correctly
+    sessionStorage.setItem("auth_code", code); // Proof that the code is being retrieved correctly
 
     if (code) {
       await getToken(code);
 
       // Clean the code from the URL so it is not reused on refresh
       window.history.replaceState({}, document.title, "/");
-      return localStorage.getItem("access_token");
+      return sessionStorage.getItem("access_token");
     }
 
     // If the code nor the access token is found start PKCE (Proof Key for Code Exchange) authorization flow
@@ -113,7 +113,7 @@ const Spotify = {
   },
   async getRefreshToken() {
     // refresh token that has been previously stored
-    const refreshToken = localStorage.getItem("refresh_token");
+    const refreshToken = sessionStorage.getItem("refresh_token");
     const url = "https://accounts.spotify.com/api/token";
 
     const payload = {
@@ -135,14 +135,14 @@ const Spotify = {
       return; // ✅ don't overwrite the valid token
     }
 
-    localStorage.setItem("access_token", response.access_token);
-    localStorage.setItem(
+    sessionStorage.setItem("access_token", response.access_token);
+    sessionStorage.setItem(
       "token_expiry",
       Date.now() + response.expires_in * 1000,
     ); // Update expiry time
 
     if (response.refresh_token) {
-      localStorage.setItem("refresh_token", response.refresh_token);
+      sessionStorage.setItem("refresh_token", response.refresh_token);
     }
   },
   async search(song) {
@@ -150,7 +150,7 @@ const Spotify = {
       `https://api.spotify.com/v1/search?q=${song}&type=track&market=EN&offset=0&limit=10`,
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
         },
       },
     );
@@ -169,9 +169,7 @@ const Spotify = {
     }
   },
   async savePlaylist(playlistName, trackUris) {
-    console.log("Saving playlist:", playlistName, trackUris);
-
-    let token = localStorage.getItem("access_token");
+    let token = sessionStorage.getItem("access_token");
 
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -189,19 +187,13 @@ const Spotify = {
       }),
     });
 
-    // console.log("Playlist creation response:", response);
-
     if (!response.ok) {
       console.error("Failed to create playlist:", response);
       return;
     }
 
     const playlist_data = await response.json();
-
-    console.log("Playlist creation response:", playlist_data);
     const playlist_id = playlist_data.id;
-
-    console.log(trackUris);
 
     // Adding tracks to the playlist
     const response_tracks = await fetch(
@@ -222,8 +214,6 @@ const Spotify = {
 
     const tracks_data = await response_tracks.json();
     return tracks_data;
-
-    // console.log("Playlist creation response:", tracks_data);
   },
 };
 

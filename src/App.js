@@ -36,7 +36,6 @@ function App() {
 
   const search = async (e) => {
     e.preventDefault();
-    console.log("Searching for song:", songName);
     const data = await Spotify.search(songName);
 
     if (data != null) {
@@ -74,9 +73,6 @@ function App() {
   };
 
   const savePlaylist = () => {
-    console.log("Saving playlist:", playlistName, playlistTracks);
-    console.log(playlistTracks.length);
-
     if (playlistTracks.length >= 1) {
       const trackUris = playlistTracks.map((track) => track.uri);
       Spotify.savePlaylist(playlistName, trackUris);
